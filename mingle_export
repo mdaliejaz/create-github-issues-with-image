@@ -1,0 +1,1741 @@
+Number	Name	Description	Type	Functional Area
+7318	Revise how new pipelines appear under 'Personlize'	"<p><strong style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19.600000381469727px;""><span style=""font-family: 'Open Sans', 'Microsoft YaHei', 微软雅黑, 'Hiragino Sans GB', 'Hiragino Sans GB W3', 'Helvetica Neue', Arial, sans-serif; font-size: 18px; line-height: 26.100000381469727px;"">Description:</span></strong></p>
+
+<ul>
+ <li><span style=""font-family: 'Open Sans', 'Microsoft YaHei', 微软雅黑, 'Hiragino Sans GB', 'Hiragino Sans GB W3', 'Helvetica Neue', Arial, sans-serif; font-size: 18px; line-height: 26.100000381469727px;"">In /go/pipelines, the ""Personalize"" filter lets you choose the pipelines you want visible.&nbsp; When a new pipeline is added by another user, this new pipeline is visible on the Pipelines page even though it was never selected by the user.&nbsp; It can be frustrating for some users who are only interested in a subset of pipelines and screen space is limited, when a new pipeline appears on the Pipelines page.</span></li>
+ <li><span style=""color: rgb(0, 0, 0); font-family: 'Open Sans', 'Microsoft YaHei', 微软雅黑, 'Hiragino Sans GB', 'Hiragino Sans GB W3', 'Helvetica Neue', Arial, sans-serif; font-size: 18px; line-height: 26.100000381469727px;"">It should be possible to sort the list in 'Personalize' alphabetically.</span></li>
+ <li><span style=""color: rgb(0, 0, 0); font-family: 'Open Sans', 'Microsoft YaHei', 微软雅黑, 'Hiragino Sans GB', 'Hiragino Sans GB W3', 'Helvetica Neue', Arial, sans-serif; font-size: 18px; line-height: 26.100000381469727px;"">It should allow me to save my list of pipelines. Depending on what i am working on I might want to see a specific set of pipelines and easily switch to another set.</span></li>
+</ul>"	Story	Dashboard
+7332	Dirtyform functionality in ConfigXML page	"<h3>Description</h3>
+
+<p>You should not be allowed to go to the other pages if you have unsaved changes in your configXML textarea. (pages : Split View and Normal).</p>"	Story	Technical
+7355	Support label template based on environment variables and property files	"<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; outline: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">Currently Go only supports label template based on $(COUNT), changelists from version controls and labels from upstream pipelines, but label template should start supporting either of the following (and of course preferably both)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; outline: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">1) Environment variables&nbsp;<br />
+e.g. &lt; pipeline name=”ABC” labeltemplate=”${env.XXX}” &gt;&nbsp;<br />
+where XXX is defined on the build machine</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; outline: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">2) Property from a file&nbsp;<br />
+e.g. &lt;pipeline name=”ABC” labeltemplatefile=”xyz.txt”&gt;&nbsp;</p>
+
+<p>&nbsp;</p>"	Story	Pipeline Configuration
+7385	Enhancement: Fix stage rerun and Job Rerun bug in VSM	"<h3>Description</h3>
+
+<p>In case of stage rerun/ job re-run, while showing the value stream map, we should pickup the stage details from the cruise-config while the pipeline is running. Right now we are picking up the previous run details and displaying them as run details for the downstream pipelines.&nbsp;</p>
+
+<p>This issue is pronounced only when the pipeline is running</p>
+
+<p><strong>Acceptance Criteria:</strong></p>
+
+<ul style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.399999618530273px;"">
+ <li>In case of stage re-runs, the latest stage runs need to be shown for that instance</li>
+ <li>All downstream pipelines that have not run need to show stages from the configuration</li>
+</ul>
+
+<h3>&nbsp;</h3>
+
+<p><strong>Verification:</strong></p>
+
+<ol>
+ <li>Rerun an existing stage and verify if stages of&nbsp;downstream pipelines are being shown as blank while the stage is in progress. Also verify after the completion of run of all stages, proper revisions and stage status is being shown</li>
+ <li>Rerun a job and verify if stages of downstream pipelines are being shown as blank while current pipeline stage is in progress. Also verify after the completion of run of all stages, proper revisions and stage status is being shown</li>
+ <li>Pause couple of downstream pipelines, re-run a job or pipeline for the pipeline context and verify if the stages are blank since they can't be triggered.</li>
+</ol>"	Task	VSM
+7387	Param Error Shown Multiple times - once for each pipeline not defining the parameter	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p># Define a new pipeline template.</p>
+
+<p># Create 4 pipelines using the template.</p>
+
+<p># Go to task of the Pipeline and use parameter in argument.</p>
+
+<p># Click on Save.</p>
+
+<p><span style=""color: rgb(17, 17, 17); font-weight: bold; line-height: normal;"">Expected result</span></p>
+
+<p># Error should be shown only once.</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p># Error shown 4 times.</p>
+
+<p>!repeat_param_error.png!</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	Templates
+7390	No proper error msg is shown when a user's operate permission is removed from pipeline group when that user has also been given stage operate permission	"<h2>&nbsp;</h2>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>Give user1 and user2 operate permissions to pipeline group PG1</li>
+ <li>Give user1 stage operate permission for&nbsp;pipeline P1 in PG1</li>
+ <li>Try to remove operate permissions of user1 from PG1</li>
+</ol>
+
+<h4>Expected result</h4>
+
+<p>This should not be allowed and a proper error message should be given for that</p>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>It just says Save failed, see errors below but does not show any error</p>"	Bug	Permissions
+7403	Allow only trigger with options	"<h3>Description</h3>
+
+<p>&nbsp;</p>
+
+<p>As a Go Administrator</p>
+
+<ul>
+ <li>I want to be able to disable the trigger with no option button&nbsp;(pipeline trigger button) on a pipeline</li>
+ <li>so that i can avoid accidental triggers</li>
+</ul>
+
+<p>&nbsp;</p>"	Story	Dashboard
+7404	Trigger with options on the history page	"<h3>Description</h3>
+
+<p>&nbsp;</p>
+
+<p>As a Go user</p>
+
+<p>I want to be able to trigger a pipeline with options from the pipeline history page (i.e. have another big purple button with options)</p>
+
+<p>So that I don’t have to go back to the main pipeline view to be able to click on that button</p>
+
+<h3>&nbsp;</h3>"	Story	Scheduling
+7406	Change a pipeline label using the API	"<p>As a Go API client</p>
+
+<p>I want to be able to change the label of a pipeline using the API</p>
+
+<p>So that I can update the label of a pipeline as part of a step in my builds</p>
+
+<p>&nbsp;</p>"	Story	Api's
+7407	Jump to latest green / red for a stage	"<p>As a Go User</p>
+
+<p>I want to be able to jump to the first occurrence of a red or green build for a given stage from the pipeline history view</p>
+
+<p>So that I don’t have to go through reams of pages to find the first green or red build of a given stage</p>
+
+<p>&nbsp;</p>"	Story	Pipeline Runs
+7417	VSM diff	"<p><span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">As a user </span></p>
+
+<p><span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">I was to do a ""VSM diff"" of two different runs of the same&nbsp;</span><span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">pipeline </span></p>
+
+<p><span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">So that I can visually see what has changed</span></p>
+
+<p>For Example I could see the sum of the two VSM <span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">with different background colours for:</span></p>
+
+<p><span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">- deleted pipelines (gray?)</span><br />
+<span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">- modified ones (yellow?)</span><br />
+<span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">- new ones (blue?)</span></p>"	Story	VSM
+7423	[VSM] In minimap more than half the width/height does not show any map	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>See the screenshots</p>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p><strong>{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}</strong></p>"	Bug	VSM
+7453	[VSM] View pipeline status in Mini-map	"<h2>Purpose</h2>
+
+<p>Understand the pipeline statuses better from the mini-map. Currently, if the main pipeline has only just started building, most of its downstreams would be unrun. And in a big graph, the downstream&nbsp;pipelines that have run could be completely scattered around. Showing boxes with red, green, yellow or grey in the mini-map itself would indicate the status at a glance much better.</p>"	Story	VSM
+7462	go-server fails to poll and checkout from a hg repository with authentication using latest version of hg (version greater than 2.0.1)	"<h2>Description</h2>
+
+<p>&nbsp;</p>
+
+<p>While the steps indicate use of a private bitbucket repo, the bug basically happens when Go is used with any hg repo using a client version &gt;=2.0.1</p>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(17, 17, 17); font-size: 16px; font-weight: 700; line-height: normal;"">Steps to reproduce</span></p>
+
+<p>&nbsp;</p>
+
+<p>Setup a private mercurial hg repository in bitbucket with security enabled</p>
+
+<p>Try configuring a hg material for a pipeline by giving right credentials. Click check connection which would go good.</p>
+
+<p>Now save the pipeline and un pause it</p>
+
+<p>&nbsp;</p>
+
+<h4>Expected result</h4>
+
+<p>Pipeline should check out from bitbucket</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>PIpeline is not checking out from bitbucket</p>
+
+<p>Instead an error message is being shown</p>
+
+<p>&nbsp;</p>
+
+<p>This issue occurs with hg client version 2.0.1 or higher.</p>
+
+<p>This is due to an implementation change in the way passwords are handled by hg client (http://mercurial.selenic.com/wiki/WhatsNew#Mercurial_2.0.1_.282011-12-01.29)</p>
+
+<p>&nbsp;</p>"	Bug	Materials
+7466	Stages with rerun jobs should show property value for the jobs that is not run as part of job rerun	"<h3>Description</h3>
+
+<p>&nbsp;</p>
+
+<p>There are jobs job1, job2, job3 associated with stage stage_1</p>
+
+<p style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px;"">On run1 of the stage only job1 has passed</p>
+
+<p style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px;"">The job is being rerun again with failed jobs job2, job3</p>
+
+<p style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px;"">Job2 has failed in this run and job3 has passed</p>
+
+<p style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px;"">The job is again being rerun with job2 alone</p>
+
+<p style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px;"">Job3 run passes</p>
+
+<p style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px;"">Since all the jobs has passed, stage_1 goes green.</p>
+
+<p style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px;"">When the user views feeds xml for stage_1 after run3</p>
+
+<p style=""line-height: 20px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px;"">He should see the passed job properties for all the three job runs</p>
+
+<p>&nbsp;</p>
+
+<h3>Acceptance Criteria</h3>
+
+<p>&nbsp;</p>
+
+<table style=""width: 800px;"">
+ <tbody>
+  <tr>
+   <td><strong>Run Number</strong></td>
+   <td><strong>Job1</strong></td>
+   <td><strong>Job2</strong></td>
+   <td><strong>Job3</strong></td>
+   <td><strong>Stage Result</strong></td>
+   <td><strong>When user views Feed XML Properties after corresponding run</strong></td>
+  </tr>
+  <tr>
+   <td>1</td>
+   <td>Passed&nbsp; &nbsp;</td>
+   <td>Failed</td>
+   <td>Failed</td>
+   <td>Failed</td>
+   <td>
+   <p>Properties corresponding to passed result should be shown for Job1</p>
+
+   <p>Properties corresponding to failed result should be shown for Job2</p>
+
+   <p>Properties corresponding to failed result should be shown for Job3</p>
+   </td>
+  </tr>
+  <tr>
+   <td>2&nbsp;&nbsp;&nbsp;&nbsp;</td>
+   <td>Not run&nbsp; &nbsp;</td>
+   <td>Failed</td>
+   <td>Passed</td>
+   <td>Failed</td>
+   <td>
+   <p style=""line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to passed result should be shown for Job1 from run 1</p>
+
+   <p style=""line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to failed result should be shown for Job2 from run 2</p>
+
+   <p style=""margin-bottom: 0px; line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to Passed result should be shown for Job3 from run 2</p>
+   </td>
+  </tr>
+  <tr>
+   <td>3&nbsp;&nbsp;&nbsp;&nbsp;</td>
+   <td>Not run</td>
+   <td>Failed</td>
+   <td>Not Run</td>
+   <td>Failed</td>
+   <td>
+   <p style=""line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to passed result should be shown for Job1 from run 1</p>
+
+   <p style=""line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to failed result should be shown for Job2 from run 3</p>
+
+   <p style=""margin-bottom: 0px; line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to Passed result should be shown for Job3 from run 2</p>
+   </td>
+  </tr>
+  <tr>
+   <td>4&nbsp;&nbsp;&nbsp;&nbsp;</td>
+   <td>Not Run&nbsp; &nbsp;</td>
+   <td>Passed</td>
+   <td>Not Run</td>
+   <td>Passed</td>
+   <td>
+   <p style=""line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to passed result should be shown for Job1 from run 1</p>
+
+   <p style=""line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to Passed result should be shown for Job2 from run 4</p>
+
+   <p style=""margin-bottom: 0px; line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to Passed result should be shown for Job3 from run 2</p>
+   </td>
+  </tr>
+  <tr>
+   <td>5</td>
+   <td>Passed&nbsp; &nbsp;</td>
+   <td>Passed</td>
+   <td>Passed</td>
+   <td>Passed</td>
+   <td>
+   <p style=""line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to passed result should be shown for Job1 from run 5</p>
+
+   <p style=""line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to Passed result should be shown for Job2 from run 5</p>
+
+   <p style=""margin-bottom: 0px; line-height: 15.555556297302246px; font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 11.111111640930176px;"">Properties corresponding to Passed result should be shown for Job3 from run 5</p>
+   </td>
+  </tr>
+ </tbody>
+</table>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>"	Story	Pipeline Runs
+7493	Support descriptions for repos and pkgs	"<h3><br />
+Description</h3>
+
+<p>&nbsp;</p>
+
+<p>As Go user i should be able to provide a short description what the repository/package is all about when a new package repository or package itself is added</p>"	Story	Package Materials
+7496	Template used for a pipeline	"<h3>Description</h3>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">A pipeline listed in the list of Pipelines should have the template it is based on, rather than ""Extract Template"" grayed out.</span><br style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"" />
+<span style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">This will help a user quickly spot the odd man out in a list, rather than open each Pipeline and check which template it is based on. This is really helpful in case user is experimenting with Templates.</span></p>
+
+<p>&nbsp;</p>
+
+<h3>&nbsp;</h3>"	Story	Templates
+7513	Make fan-in error messages more relevant	"<h3>Description</h3>
+
+<p>The error message :&nbsp;</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; font-size: 11.818181991577148px; line-height: 17.99715805053711px; border: 0px; vertical-align: baseline; color: rgb(85, 85, 85);"">&lt;pipelineName&gt; as no compatible revisions was identified [Jan-18 16:55:25]&nbsp;<br />
+Failed resolution of pipeline &lt;pipelineName&gt;: Cause: No valid revision found for the upstream dependency: DependencyMaterial{pipelineNmae='&lt;dependentpipelinename&gt;',stageName='&lt;stagename&gt;'}""</p>
+
+<p>&nbsp;</p>
+
+<p>Is generic. There should be more relevant error logging.</p>
+
+<p>&nbsp;</p>
+
+<p>Scenario for which this error was thrown:</p>
+
+<p><span style=""line-height: 18px; background-color: transparent;"">Lets assume your upstream pipeline is U, and the downstream dependent pipeline is D. Now, if the configuration of U is modified to add a new material, and there have been no runs of U with this added material, then pipeline D will not get triggered. And you would see this error.</span></p>"	Story	Fan-in
+7527	Plugin infrastructure should not fail to load up if there is an issue with some individual plugin	"<h3>Description</h3>
+
+<p>&nbsp;</p>
+
+<p>Setup Go server with 2-3 plugins</p>
+
+<p>Let one of the plugin has some permission issue, go user does not have permission to it</p>
+
+<p>&nbsp;</p>
+
+<h3>Expected Result</h3>
+
+<p>Plugin framework should load up fine and all plugins except the one which had the permissions issue should load up fine</p>
+
+<p>&nbsp;</p>
+
+<h3>Current Result</h3>
+
+<p>All plugins appear disabled in plugins tab</p>
+
+<h3>&nbsp;</h3>"	Story	Plugins
+7537	Disabled users still get notifications on pipeline events	"<h2>Description</h2>
+
+<p>Disabled users still get notifications on pipeline events</p>
+
+<h3>Steps to reproduce</h3>
+
+<p># Log in as USER_A</p>
+
+<p># Go to Preferences page and set notifications filter for pass event of pipeline X&nbsp;</p>
+
+<p># Log in as ADMIN and disable USER_A</p>
+
+<p># Run pipeline X and let it pass</p>
+
+<h4>Expected result</h4>
+
+<p>Disabled users shouldn't receive notifications</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>Even thought USER_A is disabled, user still gets notifications</p>"	Bug	Preferences
+7594	Build cause in pipeline history hides partially	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<p>Have a pipeline with 4-5 materials and look at the build cause of counter 2.&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>See screenshot -</p>
+
+<p>!Build_cause_not_visible.png!</p>
+
+<p>&nbsp;</p>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<p>Build cause should be clearly visible</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19.600000381469727px;"">Build cause in pipeline history hides partially</span></p>"	Bug	UI
+7595	Adding duplicate material name for two materials with different case shows error twice	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>Add material name called 'mat-name' to a pipeline</li>
+ <li>Add another material called 'Mat-Name' to the same pipeline</li>
+ <li>It shows following:</li>
+</ol>
+
+<p>&nbsp;</p>
+
+<p>!Validation-error-shown-twice.png!</p>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<p>It should error only once like the scenario when the material is given same name and case (in this case 'mat-name') as another material&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<p>It shows validation errors twice</p>
+
+<p>&nbsp;</p>"	Bug	Pipeline Configuration
+7597	Saving a pipeline dependency without confirming to pipeline[defaultStage] format throws an error with blank pipeline doesnot exist instead of the error with the user given pipeline name.	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>Add a material -pipeline page.</li>
+ <li>Give the Pipeline [Stage*] as just materialupdate and save</li>
+</ol>
+
+<h4>Expected result</h4>
+
+<p>The error message ""<span style=""font-size: 11.818181991577148px; line-height: 10.909090995788574px; background-color: rgb(247, 212, 212);"">Pipeline """" does not exist. It is used from pipeline ""Clone""""</span></p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>The error message must have the user given pipeline name in the error message.</p>
+
+<h3>&nbsp;</h3>"	Bug	Pipeline Configuration
+7598	Changing Case of upstream pipeline name in a dependency material after a few runs, does not trigger pipeline	"<h2>Description</h2>
+
+<p>Changing Case of upstream pipeline name in a dependency material after a few runs, does not trigger pipeline</p>
+
+<h3>Steps to reproduce</h3>
+
+<p># Create a pipeline called 'UP', make sure it runs once.</p>
+
+<p># Create a pipeline called 'down'. Add dependency material as following : &lt;pipeline pipelineName='up' stageName='stage1'/&gt;. Pipeline should get triggered.</p>
+
+<p># Run 'UP' again, and once it passes 'down' should get triggered.</p>
+
+<p># Now, change the material in 'down' to&nbsp;<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 20px;"">&lt;pipeline pipelineName='uP' stageName='stage1'/&gt;</span></p>
+
+<p><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 20px;""># Trigger 'UP' third time.</span></p>
+
+<h4>Expected result</h4>
+
+<p>'down' should trigger</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>'down' does not trigger.</p>
+
+<p>&nbsp;</p>
+
+<h3>Dev Notes (Important, will save time)</h3>
+
+<p>Debugged this scenario. Modification check goes through, BC production also goes through.</p>
+
+<p>During PipelineScheduleQueue:createPipeline() the shouldCancel() check returns true. Hence the scheduling gets canceled. In&nbsp;MaterialRevisions:isSameAs(), the&nbsp;other.findRevisionFor(materialRevision.getMaterial()) returns null.</p>
+
+<p>&nbsp;</p>"	Bug	Scheduling
+7607	Pipeline using perforce with 'use tickets' checked triggers everytime server is restarted	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>Setup a pipeline with perforce as material and check 'use tickets' option</li>
+ <li>Let the pipeline run once</li>
+ <li>Uncheck the 'use tickets' option</li>
+ <li>Restart the server.</li>
+</ol>
+
+<h4>Expected result:</h4>
+
+<p>Pipeline should not trigger again.</p>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result:</strong></h4>
+
+<p>Pipeline runs <strong>every time</strong> server is started.</p>
+
+<p>&nbsp;</p>
+
+<p>Note: You see the same result vice versa also</p>
+
+<p>&nbsp;</p>
+
+<p><strong>Analysis notes:</strong></p>
+
+<p>P4Material and P4MaterialConfig ""useTickets"" field is not part of fingerprint. But, it is part of the equals() method. So, MDU does not consider it a change when you change ""use tickets"" option from true to false. So, it does not put it in the DB. However, in BCPS' newProduceBuildCause method,&nbsp;hasConfigChanged() method call returns true, on server startup. So, the build triggers, with no modification changes (white, instead of yellow). You can use the config and cipher attached to this bug, with a new server, to see this bug. <strong>[CHECK THIS FOR ALL MATERIALS and MATERIAL CONFIGS]</strong></p>
+
+<p>&nbsp;</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	Materials
+7608	Rescheduled pipeline does not show the updated Agent IP details on the Job details page.	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p># # #</p>
+
+<p>Have a remote and local&nbsp;agent&nbsp;configured to your Go-Server.</p>
+
+<p>Disable the remote agent and trigger the pipeline.</p>
+
+<p>Once the local agent ip address gets assigned to the job, kill the local agent.</p>
+
+<p>Enable the remote agent so that the job gets rescheduled.</p>
+
+<p>&nbsp;</p>
+
+<h4>Expected result</h4>
+
+<p>The job should get&nbsp;rescheduled and the Job details page must show the rescheduled agent ip i.e. the remote agent IP.</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19px;"">The job gets rescheduled but the Job details page does not show the rescheduled agent ip i.e. the remote agent IP.</span></p>
+
+<h3><br />
+Observed on 13.2 also.</h3>"	Bug	Agents
+7610	500 Internal Server Error When Ldap Authentication fails	"<h2>Description</h2>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(17, 17, 17); font-size: 16px; font-weight: 700; line-height: normal;"">Steps to reproduce</span></p>
+
+<ol>
+ <li>Setup Go server using ldap authentication</li>
+ <li>Login into Go app using some valid ldap credentials</li>
+ <li>Change ldap encryptedManagerPassword. Ex - remove 1 character before '==' (this could happen by mistake) from <span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19.600000381469727px;"">encryptedManagerPassword from&nbsp;</span>cruise-config.xml</li>
+ <li>Navigate to some page on the UI</li>
+</ol>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<p>Since the ldap config has changed, Go tries to authenticate the user again and fails. But Go should throw a more user friendly message to the user</p>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<p>It throws 500 internal server error:</p>
+
+<pre>java.lang.NullPointerException
+ at java.util.Hashtable.&lt;init&gt;(Hashtable.java:296)
+ at org.springframework.ldap.core.support.AbstractContextSource.getAuthenticatedEnv(AbstractContextSource.java:449)
+ at org.springframework.ldap.core.support.AbstractContextSource.getReadOnlyContext(AbstractContextSource.java:107)
+ at com.thoughtworks.go.server.security.LdapContextFactory.getReadOnlyContext(LdapContextFactory.java:81)
+ at org.springframework.ldap.core.LdapTemplate.executeReadOnly(LdapTemplate.java:770)
+ at org.springframework.security.ldap.SpringSecurityLdapTemplate.searchForSingleEntry(SpringSecurityLdapTemplate.java:190)
+ at org.springframework.security.ldap.search.FilterBasedLdapUserSearch.searchForUser(FilterBasedLdapUserSearch.java:118)
+ at com.thoughtworks.go.server.security.LdapUserSearch.searchForUser(LdapUserSearch.java:91)
+ at org.springframework.security.providers.ldap.authenticator.BindAuthenticator.authenticate(BindAuthenticator.java:82)
+ at com.thoughtworks.go.server.security.LdapAuthenticator.authenticate(LdapAuthenticator.java:34)
+ at org.springframework.security.providers.ldap.LdapAuthenticationProvider.authenticate(LdapAuthenticationProvider.java:229)
+ at com.thoughtworks.go.server.security.providers.UserLicenseEnforcementProvider.authenticate(UserLicenseEnforcementProvider.java:48)
+ at org.springframework.security.providers.ProviderManager.doAuthentication(ProviderManager.java:195)
+ at org.springframework.security.AbstractAuthenticationManager.authenticate(AbstractAuthenticationManager.java:46)
+ at org.springframework.security.intercept.AbstractSecurityInterceptor.authenticateIfRequired(AbstractSecurityInterceptor.java:319)
+ at org.springframework.security.intercept.AbstractSecurityInterceptor.beforeInvocation(AbstractSecurityInterceptor.java:258)
+ at org.springframework.security.intercept.web.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:106)
+ at org.springframework.security.intercept.web.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:83)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at org.springframework.security.ui.ExceptionTranslationFilter.doFilterHttp(ExceptionTranslationFilter.java:101)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at org.springframework.security.providers.anonymous.AnonymousProcessingFilter.doFilterHttp(AnonymousProcessingFilter.java:105)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at com.thoughtworks.go.server.security.UserEnabledCheckFilter.doFilterHttp(UserEnabledCheckFilter.java:64)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at org.springframework.security.ui.AbstractProcessingFilter.doFilterHttp(AbstractProcessingFilter.java:271)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at org.springframework.security.ui.basicauth.BasicProcessingFilter.doFilterHttp(BasicProcessingFilter.java:173)
+ at com.thoughtworks.go.server.security.BasicAuthenticationFilter.doFilterHttp(BasicAuthenticationFilter.java:40)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at com.thoughtworks.go.server.security.OauthAuthenticationFilter.doFilterHttp(OauthAuthenticationFilter.java:61)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at org.springframework.security.ui.AbstractProcessingFilter.doFilterHttp(AbstractProcessingFilter.java:271)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at com.thoughtworks.go.server.security.RemoveAdminPermissionFilter.doFilterHttp(RemoveAdminPermissionFilter.java:73)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at org.springframework.security.ui.logout.LogoutFilter.doFilterHttp(LogoutFilter.java:89)
+ at com.thoughtworks.go.server.security.GoLogoutFilter.doFilterHttp(GoLogoutFilter.java:48)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at org.springframework.security.context.HttpSessionContextIntegrationFilter.doFilterHttp(HttpSessionContextIntegrationFilter.java:235)
+ at org.springframework.security.ui.SpringSecurityFilter.doFilter(SpringSecurityFilter.java:53)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at com.thoughtworks.go.server.web.ConfigValidityFilter.doFilter(ConfigValidityFilter.java:73)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at com.thoughtworks.go.server.web.i18n.LocaleResolver.doFilter(LocaleResolver.java:41)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at com.thoughtworks.go.server.security.PerformanceLoggingFilter.doFilter(PerformanceLoggingFilter.java:46)
+ at org.springframework.security.util.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:371)
+ at org.springframework.security.util.FilterChainProxy.doFilter(FilterChainProxy.java:174)
+ at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:346)
+ at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:259)
+ at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)
+ at org.mortbay.servlet.UserAgentFilter.doFilter(UserAgentFilter.java:78)
+ at org.mortbay.servlet.GzipFilter.doFilter(GzipFilter.java:131)
+ at org.mortbay.jetty.servlet.ServletHandler$CachedChain.doFilter(ServletHandler.java:1157)
+ at org.mortbay.jetty.servlet.ServletHandler.handle(ServletHandler.java:388)
+ at org.mortbay.jetty.security.SecurityHandler.handle(SecurityHandler.java:216)
+ at org.mortbay.jetty.servlet.SessionHandler.handle(SessionHandler.java:182)
+ at org.mortbay.jetty.handler.ContextHandler.handle(ContextHandler.java:765)
+ at org.mortbay.jetty.webapp.WebAppContext.handle(WebAppContext.java:418)
+ at org.mortbay.jetty.handler.HandlerCollection.handle(HandlerCollection.java:114)
+ at org.mortbay.jetty.handler.HandlerWrapper.handle(HandlerWrapper.java:152)
+ at org.mortbay.jetty.Server.handle(Server.java:326)
+ at org.mortbay.jetty.HttpConnection.handleRequest(HttpConnection.java:542)
+ at org.mortbay.jetty.HttpConnection$RequestHandler.headerComplete(HttpConnection.java:924)
+ at org.mortbay.jetty.HttpParser.parseNext(HttpParser.java:549)
+ at org.mortbay.jetty.HttpParser.parseAvailable(HttpParser.java:212)
+ at org.mortbay.jetty.HttpConnection.handle(HttpConnection.java:404)
+ at org.mortbay.io.nio.SelectChannelEndPoint.run(SelectChannelEndPoint.java:409)
+ at org.mortbay.thread.QueuedThreadPool$PoolThread.run(QueuedThreadPool.java:582)</pre>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	Auth
+7622	Rescheduled Successful job Shows no color on console log page	"<h2>Description</h2>
+
+<p>In this Page, &nbsp;default job ran successfully and show as green in color</p>
+
+<p>!Untitled1.png!</p>
+
+<p>But the same instance if we go to console log page it doesn't show any color.</p>
+
+<p>!Untitled.png!</p>
+
+<p>&nbsp;</p>
+
+<h4>Expected result</h4>
+
+<p>It should show header in respective job Result color wit<span style=""line-height: 17.078125px;"">h R</span>escheduled as message</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>It shows No color with Rescheduled as message</p>"	Bug	UI
+7630	Add date to User Summary page	"<p><strong>Description</strong></p>
+
+<p>Reported by customer -</p>
+
+<p><span style=""line-height: 15px;"">Would be nice to have a sortable&nbsp;""date added"" or ""since"" field on the User Summary page.&nbsp; This allows administrators to easily identify newly added users and respond accordingly.&nbsp; Even better would be to add the ability to alert on this type of system event.</span></p>
+
+<ul style=""margin-bottom: 0px; margin-left: 0px; padding-top: 5px; padding-bottom: 5px; padding-left: 36px; line-height: 17.390625px;"">
+ <li style=""margin-top: 2px; background-image: none;"">Specifically, we maintain a ""GO User"" email list that is used to send broadcasts to the community of users - tips, conventions, maintenance alerts...&nbsp; We need to know when a new user has been added to GO so we can keep the GO User email list up to date.&nbsp; Ultimately, GO should allow this type of notification.</li>
+ <li style=""margin-top: 2px; background-image: none;"">Alerts in general of almost anything that happens in GO would be useful from the perspective of monitoring, especially concerning conventions and adherence to some of our goals.&nbsp; Examples: new pipeline added, new environment added, new user added, new agent added/removed,&nbsp;<strong style=""margin: 0px; padding: 0px; color: rgb(68, 68, 68);"">agent status change (continues to plague us)</strong>, pipeline added to environment, pipeline added to group, pipeline changed...</li>
+</ul>
+
+<p>&nbsp;</p>"	Story	Users
+7662	[SPPU] UI issue for Server Health message and reset button UI issue on package repo tab	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>Go to Package repositories tab</li>
+ <li>Click save - server health message cannot be seen - see attached screenshot</li>
+ <li><strike>Reset button does not work</strike></li>
+</ol>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19.600000381469727px;"">This issue happens momentarily and the next MDU cycle sets the UI correctly for the server health msg.</span></p>
+
+<h4>&nbsp;</h4>"	Bug	Package Materials
+7693	Edit package definition through Admin UI	"<h3><br />
+Description</h3>
+
+<p>&nbsp;</p>
+
+<p>Add ability to edit package definition from Admin UI. Currently if you want to edit package definition either it can be done only through config.xml only.</p>"	Story	Package Materials
+7700	Server configuration link in preferences tab when smtp is not set redirects user to config xml page instead of server configuration page	"<h2><span style=""font-size: 16px;"">Steps to reproduce</span></h2>
+
+<p># Enable security but do not set smtp settings</p>
+
+<p># Access preferences page.</p>
+
+<p># There is a message asking the user to set smtp settings. The link's label is -Server Configuration. Click on this link.</p>
+
+<h4>Expected result</h4>
+
+<p>User should be directed to server configuration page</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>User is redirected to config xml page instead of server configuration page</p>
+
+<h3>&nbsp;</h3>"	Bug	Preferences
+7706	[SPPU] Accessing repository from UI throws 404 error when yum plugin jar is changed to hold different metadata property for password	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>Install Go -server (it has secure property for password set as true)</li>
+ <li>Create a pipeline based on the package repo and run the pipeline</li>
+ <li>Stop the server</li>
+ <li>Replace yum plugin jar with a jar where&nbsp;<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px; line-height: 20px;"">secure property for password set to false</span></li>
+ <li><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px; line-height: 20px;"">Restart the server</span></li>
+ <li><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px; line-height: 20px;"">Go to Admin &gt; Package Repositories and view the repository</span></li>
+</ol>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<p>You should be able to view the field values for the repo</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<p>It throws 404 error (this was the behavior observed in 13.3.0)</p>
+
+<p>&nbsp;</p>
+
+<p>A more recent observation in 14.1.0 -&gt; After the new jar with non secure password field was put in place, it caused the password field to get wiped out causing server health message to appear which complains that both username and password for the plugin is required. In UI,&nbsp;<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 20px;"">Admin &gt; Package Repositories, the password field shows up as blank which should not be the case. Entering the password again (now it shows up in plain text) causes MDU to go through fine and pipeline dependent on this material triggers</span></p>
+
+<p>&nbsp;</p>
+
+<p>!404-error.png!</p>
+
+<p>&nbsp;</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	Package Materials
+7710	[UI] Trigger with options UI defects while selecting material	"<h2>Description</h2>
+
+<p>&nbsp;</p>
+
+<p><span style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-size: 14px;"">If the package revision with which pipeline has triggered and repo name : package name itself is big, then UI of trigger with options screen looks ugly as seen in screenshot</span></p>"	Bug	UI
+7750	[SPPU] [UI] In tree view when we search with 'Package', respective 'Repository' [parent] should get expanded.	"<h3>Steps to Reproduce</h3>
+
+<ol>
+ <li>Navigate to Admin &gt; Package Repositories screen</li>
+ <li>Setup 2-3 package repositories and packages</li>
+ <li>Search for package name using search box on top</li>
+ <li>While the tree gets filtered according to search criteria, it does not expand the parent repository in tree view causing user to do it manually one by one till he comes across the one he/she has been looking for or maybe there should be expand all / collapse all button on top</li>
+</ol>"	Task	Package Materials
+7753	Long commiter name gets truncated in VSM	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<p>There is no tooltip as well. This is a problem for all materials including package materials</p>
+
+<p>&nbsp;</p>
+
+<p>!commiter_name_getting_truncated.png!</p>
+
+<h4>&nbsp;</h4>"	Bug	VSM
+7758	Frequent pinning and unpinning in VSM causes arrow highlighting to break	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<p>See some attached screenshots. There is no consistent steps to reproduce</p>
+
+<h4>&nbsp;</h4>"	Bug	VSM
+7784	Routing of get plugin config fails if plugin id contains a dot	"<p>&nbsp;</p>
+
+<h2>Description</h2>
+
+<p><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 13.63636302947998px; line-height: 19.09090805053711px;"">Plugin framework defaults the file name as the plugin-id if not configured by plugin-dev.&nbsp;</span></p>
+
+<p>If the plugin xml contains a '.' (dot) in plugin id or if the plugin xml is not provided&nbsp;at all, the plugin framework&nbsp;loads the plugin correctly.</p>
+
+<p>However, the dropdown in package-repo edit/new page to fetch config for the given plugin fails to route correctly. MDU works correctly, its just an issue with the clicky admin UI. The constraint for the route needs to updated with the allowable plugin-id characters.</p>
+
+<p>&nbsp;</p>
+
+<p>Note: The same behaviour is observed when plugin.xml is not specified and the filename of the jar has other&nbsp;characters like '*' etc (whatever is allowed in filename for a given OS) but not allowed by the xsd.</p>"	Bug	Plugins
+7788	Issue when multiple classes in a plugin implements PackageMaterialProvider interface	"<h2>Description</h2>
+
+<p>If&nbsp;multiple classes in a plugin implements PackageMaterialProvider interface, the plugin tab reports that the plugin is enabled with no errors. However, the package-repo tab states that ""<span style=""color: rgb(119, 119, 119); font-weight: bold; line-height: 15.994318008422852px; background-color: rgb(220, 239, 251);"">No plugins found. To configure a package repository you must have plugin(s) installed.</span>""</p>
+
+<p>Go-server log states:</p>
+
+<p>Failed to fetch package metadata for plugin : yum<br />
+com.thoughtworks.go.plugin.infra.GoPluginFrameworkException: More than one reference found for the given Service Reference: com.thoughtworks.go.plugin.api.material.packagerepository.PackageMaterialProvider and Plugin Id yum; References: [[com.thoughtworks.go.plugin.api.material.packagerepository.PackageMaterialProvider], [com.thoughtworks.go.plugin.api.material.packagerepository.PackageMaterialProvider]]</p>
+
+<p>&nbsp;</p>
+
+<p>Basically, metadata loader failed while fetching the config from the plugin (we use doOn not doOnAll). There should be some indication that the package plugin is invalid.</p>"	Bug	Package Materials
+7791	"""No plugins found"" message shows up if implementation of PackageMaterialConfiguration.getRepositoryConfiguration() in the plugin throws an exception"	"<h2>Description</h2>
+
+<p>If implementation of&nbsp;PackageMaterialConfiguration.getRepositoryConfiguration() &nbsp;throws an exception while&nbsp;PackageMaterialMetadataLoader tries to get the configuration from the plugin, the plugin is reported as missing in most of the screens. The plugins tab displays it in enabled state and reports no issues. Instead of missing plugin, we should probably report that the plugin had an issue. The actual exception does get logged as a WARN in go-server log. However, the&nbsp;current behavior on dashboard is a bit confusing/misleading.</p>
+
+<p>&nbsp;</p>
+
+<h3>Steps to reproduce</h3>
+
+<p># For a given&nbsp;<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 13.63636302947998px; line-height: 19.09090805053711px;"">Package material plugin, create a package-repo say R1&nbsp;, package-definition say PD1 and associate that to a pipeline say P1.</span></p>
+
+<p># In the&nbsp;plugin, go to the implementation of&nbsp;PackageMaterialConfiguration.getRepositoryConfiguration() and write some code that would throw an exception.&nbsp;</p>
+
+<p># re-deploy the plugin and restart Go server.</p>
+
+<p># Navigate to ""Plugins"" tab, all looks OK</p>
+
+<p># Navigate to ""Package Repositories"" tab, If this was the only available plugin, ""<span style=""color: rgb(119, 119, 119); font-size: 12px; font-weight: bold; line-height: 16px; background-color: rgb(220, 239, 251);"">No plugins found. To configure a package repository you must have plugin(s) installed.</span>"" message shows up.</p>
+
+<p># Navigating to edit page of repo R1, two messages show up here:</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;1. <span style=""color: rgb(119, 119, 119); font-family: 'Helvetica Neue', Arial, Helvetica; font-weight: bold; line-height: 15.994318008422852px; background-color: rgb(220, 239, 251);"">No plugins found. To configure a package repository you must have plugin(s) installed.</span>&nbsp;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;<span style=""font-size: 12px; line-height: 12px; background-color: rgb(248, 209, 216);"">Associated plugin 'yum' not found. Please contact the Go admin to install the plugin.</span></p>
+
+<p><span style=""font-size: 14px;""># Same behavior on the edit page of pkg-def PD1</span></p>
+
+<p><span style=""font-size: 14px;""># Material listing page of pipeline P1, reports that the plugin is missing</span></p>
+
+<p><span style=""font-size: 14px;""># Similar behavior on material edit/add screens</span></p>
+
+<p><span style=""font-size: 14px;""># MDU fails</span></p>"	Bug	Package Materials
+7812	Console log shows up old information on manual trigger of SPPU pipeline, if no new modification is found	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p># Setup a pipeline with Package material using http with auth say=&gt; credentials : user and password</p>
+
+<p># run the pipeline once</p>
+
+<p># Update yum repo user &amp; password to something else, say foo and bar</p>
+
+<p># update cruise-config to reflect the new credentials</p>
+
+<p># Do not publish any new rpms yet. Manual trigger the pipeline.</p>
+
+<p># Notice that the LOCATION environment variable would continue to show the old credentials.&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>NOTE: This is an&nbsp;issue for deployment activities. User might use trigger with options and select an older revision which will show older credentials and user would not be able to download artifacts correctly. There needs to be a solution that gives you credentials at point in time.</p>"	Bug	Package Materials
+7816	UI for flash messages are not consistent	"<h2>Description</h2>
+
+<p>&nbsp;</p>
+
+<p>See the attached screenshots</p>
+
+<h3>&nbsp;</h3>"	Bug	UI
+7821	[SPPU] UI issues	"<h2><span style=""font-size: 16px;"">Steps to reproduce</span></h2>
+
+<p>&nbsp;</p>
+
+<p>1)&nbsp;UI does not look good when there is error message on Add repository screen. Check screenshot&nbsp;<a href=""https://mingle09.thoughtworks.com/attachments/bd3da70e69867f95a1b29385cc51b7d0/68422/Error_on_Add_repository.png"" target=""blank"">Error_on_Add_repository.png</a>.</p>
+
+<p>2) Check Package button on new pipeline wizard (when 'choose existing' is selected), is too close to the package spec field especially firefox.&nbsp;<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px; line-height: 20px;"">Check screenshot&nbsp;</span><a href=""https://mingle09.thoughtworks.com/projects/go/attachments/68428"" id=""attachment_68428"" target=""blank"">Check_Package_button_UI_issue.png</a></p>
+
+<p><strike>3) On new pipeline wizard, select package material, select a repository, do not&nbsp;specify package&nbsp;and click next. It shows error 'This field is required.'</strike></p>
+
+<p><strike>Now instead of 'Choose Existing' select 'Define New'. The dropdown disappears but the error message still hangs around. See screenshot&nbsp;<a href=""https://mingle09.thoughtworks.com/projects/go/attachments/68429"" id=""attachment_68429"" target=""blank"">Hanging_error_message.png</a></strike></p>
+
+<p>Part 3 is already dev complete and tested.</p>"	Bug	Package Materials
+7826	[HG Material] If the user name is very long, it overflows out of trigger with options popup	"<h2>!Screen_Shot_2013-09-18_at_2.44.56_PM.png!</h2>
+
+<h3>&nbsp;</h3>"	Bug	Materials
+7833	[SPPU] If encrypted value tag is specified for Package spec or other keys (apart from password) it blanks out the value	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>Edit cruise-config.xml</li>
+ <li>Instead of value tag specify 'encryptedValue' as the tag for PACKAGE_SPEC (or any other key)</li>
+</ol>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<p>It should give an xsd validation</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<p>Config gets saved but it blanks out the value. Also it does not give MDU error in server health message till a pipeline is triggered</p>
+
+<p>&nbsp;</p>"	Bug	Package Materials
+7838	Stage re-run fails for a pipeline with package material if the associated plugin was disabled or not loaded for some reason	"<h2>Description</h2>
+
+<p>If the plugin does not get loaded, the associated metadata would also not load.&nbsp;</p>
+
+<p>In such a case, the package material config fingerprint calculation uses all fields and returns a different fingerprint.</p>
+
+<p>On stage re-run,&nbsp;ScheduledPipelineLoader.pipelineWithPasswordAwareBuildCauseByBuildId&nbsp;checks if the material configuration for pipeline has changed and if so, the build fails.</p>
+
+<p>Here the fingerprint of config material differs from the db object and hence the build fails.</p>
+
+<p>Scenario2:</p>
+
+<p>If the plugin goes missing for any reason triggering a stage fails without any indication however&nbsp;rerunning the stage will throw the server health message that the plugin is missing.</p>
+
+<h3>&nbsp;</h3>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<p>We need to think of the exact resolution but basically there should be some logs or server health message indicating plugin missing/disabled</p>"	Bug	Package Materials
+7839	[SPPU] Issues related to 'Could not trigger pipeline' server health msg	"<h2>&nbsp;</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<p>In case of erroneous scenario -</p>
+
+<ol>
+ <li class=""p1"">Pipeline based on Git if triggered, the server health message ('could not trigger pipeline'..) stays on till issue is fixed and pipeline triggered again while for package material it disappears after 10 secs.</li>
+ <li class=""p1"">Pipeline with package material shows server health message ('could not trigger pipeline'..) for 10 secs only if there is no other server health message ('could not trigger pipeline'..) already present due to another pipeline based on say Git.</li>
+</ol>
+
+<h4>&nbsp;</h4>"	Bug	Package Materials
+7840	Trigger with options not showing any details if plugins are missing	"<h2>&nbsp;</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>This happens only for repos with auth setup.</p>
+
+<ol>
+ <li>Let a pipeline depend on package material. Have couple of runs.</li>
+ <li>Delete plugins and restart the server</li>
+ <li>Now look at the pipeline and open trigger with options pop up. It looks like this : &nbsp;(note: it starts showing proper values once the plugin loads fine)</li>
+</ol>
+
+<p>&nbsp;</p>
+
+<p>!Missing_details_in_trigger_with_options_popup.png!</p>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	Package Materials
+7841	[UI] The pipeline activity history page does not show the revision completely even on hovering on it.	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>Create a pipeline with any material and have couple of runs.</p>
+
+<p>From the pipeline activity page hover on the revision text of any of the runs.</p>
+
+<h4>Expected result</h4>
+
+<p>The revision must be displayed completely</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>The hovered text is not shown completely.</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	UI
+7843	[SPPU] Handle scenario when repoquery hangs	"<h3>Description</h3>
+
+<p>For material of type PackageMaterial, when modification check hangs &nbsp;i<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19px;"">nform users that the material is hung or set a timeout like TFS &nbsp;material update</span></p>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(17, 17, 17); font-size: 16px; font-weight: 700; line-height: normal;"">Acceptance Criteria</span></p>
+
+<ul>
+ <li>Documentation</li>
+ <li>Performance testing</li>
+</ul>
+
+<h3>Dependencies</h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, status, priority WHERE 'Features - Story' = THIS CARD ORDER BY status
+}}
+
+<p>&nbsp;</p>
+
+<h3>Test Scenarios</h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Story' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Story	Package Materials
+7844	[SPPU] Give clear log message in case external plugin fails to load due to same jar name	"<h3>Description:</h3>
+
+<p>&nbsp;</p>
+
+<p>Let the bundled plugin and external plugin have the same jar name. In&nbsp;this case only bundled plugin gets loaded and not external plugin. But in logs it gives this error message which is not very clear (it makes sense when external plugin failed to load due to same plugin id ) -</p>
+
+<p>&nbsp;</p>
+
+<p><span style=""font-size: 14px;"">2013-09-22 19:43:54,047&nbsp; WARN [Thread-67] DefaultPluginJarLocationMonitor:276 - Plugin listener failed</span></p>
+
+<p class=""p1"">java.lang.RuntimeException: Found bundled plugin with ID: [yum], external plugin could not be loaded</p>
+
+<p class=""p1"">&nbsp;&nbsp; &nbsp;at com.thoughtworks.go.plugin.infra.listeners.DefaultPluginJarChangeListener.validateIfExternalPluginRemovingBundledPlugin(DefaultPluginJarChangeListener.java:94)</p>
+
+<p class=""p1"">&nbsp;&nbsp; &nbsp;at com.thoughtworks.go.plugin.infra.listeners.DefaultPluginJarChangeListener.pluginJarAdded(DefaultPluginJarChangeListener.java:53)</p>
+
+<p class=""p1"">&nbsp;&nbsp; &nbsp;at com.thoughtworks.go.plugin.infra.monitor.DefaultPluginJarLocationMonitor$PluginLocationMonitorThread$DoOnAllListeners$1.execute(DefaultPluginJarLocationMonitor.java:243)</p>
+
+<p class=""p1"">&nbsp;&nbsp; &nbsp;at com.thoughtworks.go.plugin.infra.monitor.DefaultPluginJarLocationMonitor$PluginLocationMonitorThread$DoOnAllListeners.doOnAll(DefaultPluginJarLocationMonitor.java:274)</p>
+
+<p class=""p1"">&nbsp;&nbsp; &nbsp;at com.thoughtworks.go.plugin.infra.monitor.DefaultPluginJarLocationMonitor$PluginLocationMonitorThread$DoOnAllListeners.pluginJarAdded(DefaultPluginJarLocationMonitor.java:241)</p>
+
+<p class=""p1"">&nbsp;&nbsp; &nbsp;at com.thoughtworks.go.plugin.infra.monitor.DefaultPluginJarLocationMonitor$PluginLocationMonitorThread.notifyListenersOfAddedPlugins(DefaultPluginJarLocationMonitor.java:172)</p>
+
+<p class=""p1"">&nbsp;&nbsp; &nbsp;at com.thoughtworks.go.plugin.infra.monitor.DefaultPluginJarLocationMonitor$PluginLocationMonitorThread.loadAndNotifyPluginsFrom(DefaultPluginJarLocationMonitor.java:163)</p>
+
+<p class=""p1"">&nbsp;&nbsp; &nbsp;at com.thoughtworks.go.plugin.infra.monitor.DefaultPluginJarLocationMonitor$PluginLocationMonitorThread.run(DefaultPluginJarLocationMonitor.java:149)</p>
+
+<p>&nbsp;</p>"	Bug	Package Materials
+7845	Environment variable duplication due to - & _ chars in repo/package name	"<h2>Description</h2>
+
+<pre style=""white-space: pre-wrap; color: rgb(34, 34, 34); margin-top: 0px; margin-bottom: 0px; font-family: consolas, monaco, courier; overflow: hidden;"">[go] setting environment variable 'GO_PACKAGE_LOCAL_GO_2_GO_AGENT_LABEL' to value 'go-agent-13.3.0-18118.noarch'
+[go] setting environment variable 'GO_REPO_LOCAL_GO_2_GO_AGENT_REPO_URL' to value 'file:///home/srinivas/Documents/repos/yum-repo'
+[go] setting environment variable 'GO_PACKAGE_LOCAL_GO_2_GO_AGENT_PACKAGE_SPEC' to value 'go-agent*'
+[go] setting environment variable 'GO_PACKAGE_LOCAL_GO_2_GO_AGENT_LOCATION' to value 'file:///home/srinivas/Documents/repos/yum-repo/go-agent-13.3.0-18118.noarch.rpm'
+[go] <b>overriding environment variable</b> 'GO_PACKAGE_LOCAL_GO_2_GO_AGENT_LABEL' with value 'go-agent-13.2.2-17585.noarch'
+[go] <b>overriding environment variable</b> 'GO_REPO_LOCAL_GO_2_GO_AGENT_REPO_URL' with value 'file:///home/srinivas/Documents/repos/yum-repo-2'
+[go] <b>overriding environment variable</b> 'GO_PACKAGE_LOCAL_GO_2_GO_AGENT_PACKAGE_SPEC' with value 'go-agent*'
+[go] <b>overriding environment variable</b> 'GO_PACKAGE_LOCAL_GO_2_GO_AGENT_LOCATION' with value 'file:///home/srinivas/Documents/repos/yum-repo-2/go-agent-13.2.2-17585.noarch.rpm'
+cruise-output</pre>
+
+<pre style=""white-space: pre-wrap; color: rgb(34, 34, 34); margin-top: 0px; margin-bottom: 0px; font-family: consolas, monaco, courier; overflow: hidden;"">&nbsp;</pre>
+
+<pre style=""white-space: pre-wrap; color: rgb(34, 34, 34); margin-top: 0px; margin-bottom: 0px; font-family: consolas, monaco, courier; overflow: hidden;"">when following configuration is used:</pre>
+
+<p style=""white-space: pre-wrap; font: inherit; margin-bottom: 15px; padding: 10px; vertical-align: baseline; color: rgb(51, 51, 51); overflow: auto; font-family: consolas, monaco, courier !important; margin-top: 5px; border: 1px solid rgb(204, 204, 204); background-image: none;"">&lt;repository id=""34569cdc-1d5e-4637-bd35-b0290a92401d"" name=""local-go-2""&gt; &lt;pluginConfiguration id=""yum"" version=""1"" /&gt; &lt;configuration&gt; &lt;property&gt; &lt;key&gt;REPO_URL&lt;/key&gt; &lt;value&gt;file:///home/srinivas/Documents/repos/yum-repo&lt;/value&gt; &lt;/property&gt; &lt;/configuration&gt; &lt;packages&gt; &lt;package id=""d8f0c675-957b-4231-9df3-10bea40bf184"" name=""go-agent""&gt; &lt;configuration&gt; &lt;property&gt; &lt;key&gt;PACKAGE_SPEC&lt;/key&gt; &lt;value&gt;go-agent*&lt;/value&gt; &lt;/property&gt; &lt;/configuration&gt; &lt;/package&gt; &lt;/packages&gt; &lt;/repository&gt; &lt;repository id=""d74c2f81-f280-418a-beee-766879636368"" name=""<b>local-go_2</b>""&gt; &lt;pluginConfiguration id=""yum"" version=""1"" /&gt; &lt;configuration&gt; &lt;property&gt; &lt;key&gt;REPO_URL&lt;/key&gt; &lt;value&gt;file:///home/srinivas/Documents/repos/yum-repo-2&lt;/value&gt; &lt;/property&gt; &lt;/configuration&gt; &lt;packages&gt; &lt;package id=""de1cd02f-f548-44fe-8e14-e2196192bba6"" name=""go-agent""&gt; &lt;configuration&gt; &lt;property&gt; &lt;key&gt;PACKAGE_SPEC&lt;/key&gt; &lt;value&gt;go-agent*&lt;/value&gt; &lt;/property&gt; &lt;/configuration&gt; &lt;/package&gt; &lt;/packages&gt; &lt;/repository&gt;</p>
+
+<p><span style=""line-height: 19.600000381469727px;"">Note: Due to duplication of env variables, Go thinks that it is being overridden which is incorrect</span></p>"	Bug	Package Materials
+7846	Repoquery error while polling	"<h2>Description</h2>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">The following error seems to happen when Go Server is running as jar. And user logs off.</p>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">Things seem to become normal again after user logs in again.</p>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">&nbsp;</p>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">&nbsp;</p>
+
+<pre class=""gmail_default"" style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">
+java.lang.RuntimeException: Error while querying repository with path 'file:///home/srinivas/Documents/repos/yum-repo-2' and package spec 'go-agent*'. Error Message: error: rpmdb: Thread/process 17311/140715759941376 failed: Thread died in Berkeley DB library
+
+error: db5 error(-30973) from dbenv-&gt;failchk: DB_RUNRECOVERY: Fatal error, run database recovery
+
+error: cannot open Packages index using db5 -  (-30973)
+
+error: cannot open Packages database in /home/srinivas/.rpmdb
+
+Traceback (most recent call last):
+
+  File ""/usr/bin/repoquery"", line 867, in &lt;module&gt;
+
+    main(sys.argv)
+
+  File ""/usr/bin/repoquery"", line 779, in main
+
+    repoq.doConfigSetup(debuglevel=initnoise, init_plugins=opts.plugins)
+
+  File ""/usr/lib/pymodules/python2.7/yum/__init__.py"", line 199, in doConfigSetup
+
+    return self.conf
+
+  File ""/usr/lib/pymodules/python2.7/yum/__init__.py"", line 723, in &lt;lambda&gt;
+
+    conf = property(fget=lambda self: self._getConfig(),
+
+  File ""/usr/lib/pymodules/python2.7/yum/__init__.py"", line 249, in _getConfig
+
+    startupconf = config.readStartupConfig(fn, root)
+
+  File ""/usr/lib/pymodules/python2.7/yum/config.py"", line 807, in readStartupConfig
+
+    startupconf.releasever = _getsysver(startupconf.installroot, startupconf.distroverpkg)
+
+  File ""/usr/lib/pymodules/python2.7/yum/config.py"", line 914, in _getsysver
+
+    idx = ts.dbMatch('provides', distroverpkg)
+
+_rpm.error: rpmdb open failed
+
+at com.thoughtworks.go.plugin.infra.FelixGoPluginOSGiFramework.executeActionOnTheService(FelixGoPluginOSGiFramework.java:259)
+
+at com.thoughtworks.go.plugin.infra.FelixGoPluginOSGiFramework.doOn(FelixGoPluginOSGiFramework.java:193)
+
+at com.thoughtworks.go.plugin.infra.DefaultPluginManager.doOn(DefaultPluginManager.java:64)
+
+at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller.getModifications(PackageMaterialPoller.java:65)
+
+at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller.modificationsSince(PackageMaterialPoller.java:61)
+
+at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller.modificationsSince(PackageMaterialPoller.java:28)
+
+at com.thoughtworks.cruise.server.service.MaterialService.modificationsSince(MaterialService.java:95)
+
+at com.thoughtworks.cruise.server.materials.ScmMaterialUpdater.insertLatestOrNewModifications(ScmMaterialUpdater.java:36)
+
+at com.thoughtworks.cruise.server.materials.PackageMaterialUpdater.insertLatestOrNewModifications(PackageMaterialUpdater.java:45)
+
+at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater.insertLatestOrNewModifications(MaterialDatabaseUpdater.java:134)
+
+at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater.updateMaterialWithNewRevisions(MaterialDatabaseUpdater.java:126)
+
+at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater$2.doInTransaction(MaterialDatabaseUpdater.java:90)
+
+at com.thoughtworks.cruise.server.transaction.TransactionCallback.doWithExceptionHandling(TransactionCallback.java:8)
+
+at com.thoughtworks.cruise.server.transaction.TransactionTemplate$3.doInTransaction(TransactionTemplate.java:37)
+
+at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:130)
+
+at com.thoughtworks.cruise.server.transaction.TransactionTemplate.executeWithExceptionHandling(TransactionTemplate.java:33)
+
+at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater.updateMaterial(MaterialDatabaseUpdater.java:87)
+
+at com.thoughtworks.cruise.server.materials.MaterialUpdateListener.onMessage(MaterialUpdateListener.java:27)
+
+at com.thoughtworks.cruise.server.materials.MaterialUpdateListener.onMessage(MaterialUpdateListener.java:12)
+
+at com.thoughtworks.cruise.server.messaging.activemq.JMSMessageListenerAdapter.runImpl(JMSMessageListenerAdapter.java:49)
+
+at com.thoughtworks.cruise.server.messaging.activemq.JMSMessageListenerAdapter.run(JMSMessageListenerAdapter.java:34)
+
+at java.lang.Thread.run(Thread.java:722)
+
+Caused by: java.lang.RuntimeException: Error while querying repository with path 'file:///home/srinivas/Documents/repos/yum-repo-2' and package spec 'go-agent*'. Error Message: error: rpmdb: Thread/process 17311/140715759941376 failed: Thread died in Berkeley DB library
+
+error: db5 error(-30973) from dbenv-&gt;failchk: DB_RUNRECOVERY: Fatal error, run database recovery
+
+error: cannot open Packages index using db5 -  (-30973)
+
+error: cannot open Packages database in /home/srinivas/.rpmdb
+
+Traceback (most recent call last):
+
+  File ""/usr/bin/repoquery"", line 867, in &lt;module&gt;
+
+    main(sys.argv)
+
+  File ""/usr/bin/repoquery"", line 779, in main
+
+    repoq.doConfigSetup(debuglevel=initnoise, init_plugins=opts.plugins)
+
+  File ""/usr/lib/pymodules/python2.7/yum/__init__.py"", line 199, in doConfigSetup
+
+    return self.conf
+
+  File ""/usr/lib/pymodules/python2.7/yum/__init__.py"", line 723, in &lt;lambda&gt;
+
+    conf = property(fget=lambda self: self._getConfig(),
+
+  File ""/usr/lib/pymodules/python2.7/yum/__init__.py"", line 249, in _getConfig
+
+    startupconf = config.readStartupConfig(fn, root)
+
+  File ""/usr/lib/pymodules/python2.7/yum/config.py"", line 807, in readStartupConfig
+
+    startupconf.releasever = _getsysver(startupconf.installroot, startupconf.distroverpkg)
+
+  File ""/usr/lib/pymodules/python2.7/yum/config.py"", line 914, in _getsysver
+
+    idx = ts.dbMatch('provides', distroverpkg)
+
+_rpm.error: rpmdb open failed
+
+at com.tw.go.plugin.material.artifactrepository.yum.exec.command.RepoQueryCommand.execute(Unknown Source)
+
+at com.tw.go.plugin.material.artifactrepository.yum.exec.YumRepositoryPoller.executeRepoQuery(Unknown Source)
+
+at com.tw.go.plugin.material.artifactrepository.yum.exec.YumRepositoryPoller.getLatestRevision(Unknown Source)
+
+at com.tw.go.plugin.material.artifactrepository.yum.exec.YumRepositoryPoller.latestModificationSince(Unknown Source)
+
+at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller$2.execute(PackageMaterialPoller.java:58)
+
+at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller$2.execute(PackageMaterialPoller.java:50)
+
+at com.thoughtworks.go.plugin.infra.FelixGoPluginOSGiFramework.executeActionOnTheService(FelixGoPluginOSGiFramework.java:257)
+
+... 21 more</pre>
+
+<div class=""gmail_default"" style=""color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 13px;"">&nbsp;</div>
+
+<h2>&nbsp;</h2>
+
+<h3><br />
+&nbsp;</h3>"	Bug	Package Materials
+7847	If there are multiple config property of repo/package that contribute to fingerprint, then the order in which they get defined in config xml affects the fingerprint computation	"<p><span style=""color: rgb(17, 17, 17); font-size: 18px; font-weight: 700; line-height: normal;"">Description</span></p>
+
+<p style=""line-height: 19px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">Lets say for a package material plugin, property P1 and P2 of repo and P3 of package&nbsp;are defined as&nbsp;PART_OF_IDENTITY.</p>
+
+<p style=""line-height: 19px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">Create a repo R1 in Go with package PKG1. Define config properties in the order P1&nbsp;and P2.</p>
+
+<p style=""line-height: 19px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">Create a pipeline with PKG1 as material. Run the pipeline one or more times. &nbsp;Go to config xml, reverse the order in which the properties appear, ie from 'P1 then P2' to 'P2 then P1'. Save changes and go back to dashboard. Notice that all modification history for the material is gone from trigger-with-options for P1. This is now treated as a completely new material.</p>
+
+<p style=""line-height: 19px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">The order in which the properties are configured in Go also affect the fingerprint computation.</p>
+
+<p style=""line-height: 19px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">&nbsp;</p>
+
+<p style=""line-height: 19px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">A side effect of this (Need to verify if this is an issue at all)</p>
+
+<p style=""line-height: 19px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">Create another repo R2 with package PKG2 but exactly the same config values as defined by R1, just reverse the order in which the properties appear in config file for R1, ie. P2 then P1.</p>
+
+<p style=""line-height: 19px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">Config save is allowed, as the fingerprint generated by Go would be different for both of these, while ideally the save should have failed as the package material are identical as they have the same set of properties (This is important else it will allow autoUpdate property to set differently for the same material causing potentially some issues)</p>
+
+<h3>&nbsp;</h3>"	Bug	Package Materials
+7853	[Installer] The bundled plugins folder has a checksum file whose name is not appropriate.	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<p>The installed server has a checksum file in /var/lib/go-server/plugins/bundled/ that has a name like go_installers_minor_release.checksum which is not very appropriate. Basically it seems to be taking the name of the pipeline generating the Yum plugin jar.</p>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	Plugins
+7854	[SPPU] If the trackback url ends with a slash then the link is disabled from VSM.	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<ol>
+ <li>Create a repository with an rpm package that has a trackback url that ends with a slash.</li>
+ <li>After couple of runs, check the VSM for one of the runs.</li>
+</ol>
+
+<h4>Expected result</h4>
+
+<p>The trackback url must be clickable.</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>The trackback url is not clickable.</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	Package Materials
+7875	Material update should not happen when pipeline is triggered with option	"<h3>&nbsp;</h3>
+
+<h2>Description</h2>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">P1 -&gt; depends on Git G (with auto update false) P2 -&gt; depends on P1 and Git G</p>
+
+<h3>Steps to reproduce</h3>
+
+<ol style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">
+ <li>Let the entire pipeline get triggered once</li>
+ <li>Make checkins g1 and g2 in G</li>
+ <li>Do Trigger with options for pipeline P2. Trigger it with P1|1 #</li>
+</ol>
+
+<h4 style=""font-family: 'Helvetica Neue', Arial, Helvetica;"">Expected result</h4>
+
+<ul style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">
+ <li>Pipeline P1 should not get triggered with g1 and g2</li>
+</ul>
+
+<h4 style=""font-family: 'Helvetica Neue', Arial, Helvetica;"">Current result</h4>
+
+<ul style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">
+ <li>Pipeline P1 gets triggered with g1 and g2</li>
+</ul>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">&nbsp;</p>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">Another Scenario:&nbsp;</p>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">&nbsp;&nbsp; &nbsp;setup pipeline P1, with a material G1 with autoUpdate=false. setup another pipeline P2 dependent on the same material.<br />
+&nbsp;&nbsp; &nbsp;run all pipelines to get the latest revision say R1 of G1. Make a new commit, R2.<br />
+&nbsp;&nbsp; &nbsp;trigger with option P1 with R1. Notice that P2 gets triggered with R2. Tried this with Git and Package material.</p>
+
+<p>&nbsp;</p>
+
+<h3>Acceptance Criteria</h3>
+
+<ul>
+ <li>Documentation</li>
+ <li>Performance testing</li>
+</ul>
+
+<h3>Dependencies</h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, status, priority WHERE 'Features - Story' = THIS CARD ORDER BY status
+}}
+
+<p>&nbsp;</p>
+
+<h3>Test Scenarios</h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Story' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Story	Materials
+7880	The pipeline search on dashboard on browser back is not consistent across Chrome and Firefox.	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<ol>
+ <li>Create few pipelines and search for the same from the dashboard.</li>
+ <li>On Chrome and Firefox ---&gt; Navigate to one of the pipelines from the dashboard.</li>
+ <li>Perform browser back.</li>
+</ol>
+
+<p><span style=""color: rgb(17, 17, 17); font-weight: bold; line-height: normal;"">Expected result</span></p>
+
+<p>The behaviour should be consistent across browsers.&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p style=""line-height: 19.600000381469727px; color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px;"">The search happens instantly&nbsp;on firefox but on chrome it waits for the next auto refresh.</p>
+
+<h3>&nbsp;</h3>"	Bug	Dashboard
+7919	Allow short git sha in pipeline label	"<h2 style=""margin: 0px; padding: 6px 10px; background-color: rgb(242, 242, 242); border: 1px solid rgb(230, 230, 230); font-size: 18px; line-height: 19px; overflow: auto; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;"">Description:</h2>
+
+<p style=""margin-bottom: 6px; padding-top: 2px; padding-bottom: 1px; border: 0px; outline: 0px; font-style: inherit; font-size: 1em; font-family: inherit; vertical-align: baseline; line-height: 1.45em; clear: left;"">&nbsp;</p>
+
+<p style=""margin-bottom: 6px; padding-top: 2px; padding-bottom: 1px; border: 0px; outline: 0px; font-style: inherit; font-size: 1em; font-family: inherit; vertical-align: baseline; line-height: 1.45em; clear: left;"">Currently in Go you can name a material, for instance 'git', and reference it in the label template. This however yields to the full, long git revision being used, which is not very nice in the UI.</p>
+
+<p style=""margin-bottom: 6px; padding-top: 2px; padding-bottom: 1px; border: 0px; outline: 0px; font-style: inherit; font-size: 1em; font-family: inherit; vertical-align: baseline; line-height: 1.45em; clear: left;"">Go should allow short git revision number to be mentioned as the pipeline label</p>"	Story	Pipeline Configuration
+7921	If a material repo is recreated, material update starts failing	"<h3>Description</h3>
+
+<ul>
+ <li>Create a pipeline P1 with a git repo say /tmp/gitrepo</li>
+ <li>run the pipeline a few times.</li>
+ <li>delete&nbsp;<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19px;"">/tmp/gitrepo and recreate another git repo at the same path&nbsp;/tmp/gitrepo</span></li>
+ <li><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19px;"">make some commit to this repo. Material update fails stating ""</span><span style=""color: rgb(68, 68, 68); font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px;"">unknown revision&nbsp;</span>'git-sha'<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19px;"">"".&nbsp;</span></li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19px;"">This has been reported by many customers. Current work-around is to add/remove a '/' at the end of the url. May be needs to be handled better as you can use the workaround only once :)</span></p>"	Story	Materials
+7970	Agent -side plugin doesn't get deleted after the same plugin was deleted on server side	"<h2>&nbsp;</h2>
+
+<p>&nbsp;</p>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>&nbsp;plugin called test.jar on server side which is present on the agent side as well</li>
+ <li>&nbsp;Delete this plugin from server side . restart the server</li>
+ <li>&nbsp;Now restart the agent and check the plugins folder on agent side</li>
+</ol>
+
+<h4>&nbsp;</h4>
+
+<p><strong>Expected Result</strong></p>
+
+<p>The deleted plugin should not be present on agent side</p>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current Result</strong></h4>
+
+<p>The deleted plugin is still present</p>
+
+<h3><br />
+&nbsp;</h3>
+
+<p><br />
+&nbsp;</p>"	Bug	Plugins
+7973	Agent process is killed and new plugins.zip is downloaded on every server restart without changes made to the server plugins directory	"<h2>&nbsp;</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<ol>
+ <li>Have couple of plugins at the server side</li>
+ <li>Notice that agent-plugins.zip is present in the sandbox directory of the agent</li>
+ <li>Keep a note of the time stamp of the&nbsp;<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19.600000381469727px;"">agent-plugins.zip on the agent side</span></li>
+ <li>Also keep a note of the process id of the running agent</li>
+ <li>Restart the server</li>
+</ol>
+
+<h4>Expected result</h4>
+
+<p>Since the plugins have not undergone any change the agent-plugins.zip should not be downloaded again and certainly agent process should not get killed</p>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<p>The new timestamp of<strong>&nbsp;</strong><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19.600000381469727px;"">agent-plugins.zip and new process id of agent indicates that agent was killed and plugins.zip was downloaded again which is incorrect</span></p>
+
+<p>&nbsp;</p>
+
+<h3>&nbsp;</h3>"	Bug	Plugins
+7975	Recursive update/clone and deletion untracked files for submodules does not work	"<p>Just like ""<span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19.600000381469727px;"">git submodule foreach --recursive git checkout ."" is done to get rid of local modifications recursively from all submodules, this needs to be done for submodule update/clone and ""git clean -ffd"" as well, to take care of nested submodules</span></p>"	Bug	Materials
+7984	Unlock a locked pipeline if stage fails	"<h3>Description</h3>
+
+<p>As a Go user i want a locked pipeline to get unlocked if a stage fails, so that a check-in having&nbsp;the&nbsp;fix triggers the pipeline without me having to unlock&nbsp;it.</p>
+
+<p>Pipeline staying locked even if the stage fails was intentional. Consider a deployment pipeline. If the pipeline fails at a stage then it could be due to some environment issues which needs to be sorted before the stage could proceed and there is no point for another instance to start running. But if the issue is with deployment script then another checkin is needed and the pipeline should get triggered even if some stage had failed. So essentially user should have an option to unlock it if needed. Exact approach yet to be decided.</p>
+
+<p>&nbsp;</p>"	Story	Scheduling
+7987	Support secure environment variables at environment/stage/job levels	"<h3><br />
+Description</h3>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(103, 103, 103); font-family: 'Open Sans', 'Microsoft YaHei', 微软雅黑, 'Hiragino Sans GB', 'Hiragino Sans GB W3', 'Helvetica Neue', Arial, sans-serif; font-size: 18px; line-height: 26.100000381469727px;"">Currently secure environment variables have been implemented only at the pipeline level. Go should also support environment/stage/job level secure environment variables.</span></p>"	Story	Environments
+8018	Remove unused jars from code	"<p>Remove unused jars from tools folder</p>
+
+<p>Example:</p>
+
+<p>tools/yourkit dll&nbsp;</p>
+
+<p>tools/node_modules [was added when we added Karma. can be removed for now]</p>
+
+<p>tools/jes.jar is used by some ignored e-mail integration tests. Also, some old jes.log files need to be removed.</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<h3>Dependencies</h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, status, priority WHERE 'Features - Developer Task' = THIS CARD ORDER BY status
+}}
+
+<p>&nbsp;</p>
+
+<h3>Test Scenarios</h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Task' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Task	Technical
+8021	DIsplay a user-friendly message when re-run an old stage after changing the material for the pipeline.	"<h3>Description</h3>
+
+<p>&nbsp;</p>
+
+<ul>
+ <li>Configure a pipeline say P1 with material M1. trigger pipeline, wait for build P1/1 to pass .</li>
+ <li>Change the material for P1 from M1 to M2, such that M1 does not exist in config anymore and save config.</li>
+ <li>Trigger pipeline, wait for build P1/2 &nbsp;to pass.</li>
+ <li>Re-run one of the stages of P1/1. Notice the pipeline fails. This is the current expected behavior.</li>
+ <li>This request is about displaying a more user friendly error message instead of a very technical one.&nbsp;</li>
+</ul>
+
+<p>&nbsp;</p>"	Story	Scheduling
+8022	Change of case for stage and pipeline name causes trigger and trigger with options button to disable	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<p>&nbsp;</p>
+
+<ol>
+ <li>Create a pipeline with ABC with stage name as 'STAGE'</li>
+ <li>Let one instance of pipeline run</li>
+ <li>Disable the agent and trigger the pipeline again so that it schedules</li>
+ <li>Rename the stage to 'stage'</li>
+ <li>Pipeline continues to be in scheduled state</li>
+ <li>Bring back the agent&nbsp;</li>
+</ol>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<p><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14.44444465637207px; line-height: 20px;"">Pipeline should go green</span></p>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<p>Pipeline goes green but trigger and trigger with options button remain disabled on the dashboard. Also console log and all cannot be reached. It says Go has purged the console log.</p>
+
+<p>Also next checkin does not trigger this pipeline</p>
+
+<p>&nbsp;</p>
+
+<p>Note - If the case of the pipeline is changed, it gives similar result, just that you can see the console log.</p>"	Bug	Scheduling
+8023	Issue in shine backgroundstageloader	"<h2>Description</h2>
+
+<p><span style=""color: rgb(68, 68, 68); font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px;"">When multiple stages complete at the same time, shine loader throws up below exception. This however does not effect Go. Need to find a way around this&nbsp;</span></p>
+
+<p>&nbsp;</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">2013-10-14 01:17:50,061 ERROR [291607518@qtp-763030760-239] GRDDLTransformer:39 - Could not convert to a graph. The document was:</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">&lt;?xml version=""1.0"" encoding=""UTF-8""?&gt;</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">&lt;rdf:RDF xmlns:rdf=""<a href=""http://www.w3.org/1999/02/22-rdf-syntax-ns#"" style="""" target=""_blank"">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>"" xmlns:java=""<a href=""http://xml.apache.org/xalan/java"" style="""" target=""_blank"">http://xml.apache.org/xalan/java</a>"" xmlns:cruise=""<a href=""http://studios.thoughtworks.com/ontologies/2009/12/07-cruise#&quot;&gt;urn:x-go.studios.thoughtworks.com:job-id:FsaComplianceDb-ToSIT:8:generateSQLReport:1:generateSQLReport&lt;cruise:jobResult&gt;&lt;cruise:PassedResult/&gt;&lt;/cruise:jobResult&gt;Completed&lt;cruise:hasArtifacts&gt;&lt;cruise:Artifacts"" style="""" target=""_blank"">http://studios.thoughtworks.com/ontologies/2009/12/07-cruise#""&gt;urn:x-go.studios.thoughtworks.com:job-id:FsaComplianceDb-ToSIT:8:generateSQLReport:1:generateSQLReport&lt;cruise:jobResult&gt;&lt;cruise:PassedResult/&gt;&lt;/cruise:jobResult&gt;Completed&lt;cruise:hasArtifacts&gt;&lt;cruise:Artifacts</a>&nbsp;rdf:about=""urn:uuid:7d382f42-7188-40ce-b0c3-4b4053929512""&gt;&lt;cruise:artifactsBaseURL rdf:datatype=""<a href=""http://www.w3.org/2001/XMLSchema#string&quot;&gt;https://localhost:8154/go/files/FsaComplianceDb-ToSIT/8/generateSQLReport/1/generateSQLReport&lt;/cruise:artifactsBaseURL&gt;&lt;cruise:pathFromArtifactRoot"" style="""" target=""_blank"">http://www.w3.org/2001/XMLSchema#string""&gt;https://localhost:8154/go/files/FsaComplianceDb-ToSIT/8/generateSQLReport/1/generateSQLReport&lt;/cruise:artifactsBaseURL&gt;&lt;cruise:pathFromArtifactRoot</a>&nbsp;rdf:datatype=""<a href=""http://www.w3.org/2001/XMLSchema#string&quot;&gt;pipelines\FsaComplianceDb-ToSIT\8\generateSQLReport\1\generateSQLReport&lt;/cruise:pathFromArtifactRoot&gt;&lt;cruise:hasArtifact&gt;&lt;cruise:Artifact"" style="""" target=""_blank"">http://www.w3.org/2001/XMLSchema#string""&gt;pipelines\FsaComplianceDb-ToSIT\8\generateSQLReport\1\generateSQLReport&lt;/cruise:pathFromArtifactRoot&gt;&lt;cruise:hasArtifact&gt;&lt;cruise:Artifact</a>&nbsp;rdf:about=""urn:uuid:c15bc9e2-084a-4962-93ce-485da12b070a""&gt;&lt;cruise:artifactPath rdf:datatype=""<a href=""http://www.w3.org/2001/XMLSchema#string&quot;/&gt;&lt;cruise:artifactType"" style="""" target=""_blank"">http://www.w3.org/2001/XMLSchema#string""/&gt;&lt;cruise:artifactType</a>&nbsp;rdf:datatype=""<a href=""http://www.w3.org/2001/XMLSchema#string&quot;&gt;file&lt;/cruise:artifactType&gt;&lt;/cruise:Artifact&gt;&lt;/cruise:hasArtifact&gt;&lt;/cruise:Artifacts&gt;&lt;/cruise:hasArtifacts&gt;&lt;/rdf:RDF"" style="""" target=""_blank"">http://www.w3.org/2001/XMLSchema#string""&gt;file&lt;/cruise:artifactType&gt;&lt;/cruise:Artifact&gt;&lt;/cruise:hasArtifact&gt;&lt;/cruise:Artifacts&gt;&lt;/cruise:hasArtifacts&gt;&lt;/rdf:RDF</a>&gt;</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">com.thoughtworks.studios.shine.ShineRuntimeException: Could not create graph from XML RDF!</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.semweb.sesame.SesameGraph.addTriplesFromRDFXMLAbbrev(SesameGraph.java:270)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.semweb.grddl.GRDDLTransformer.transform(GRDDLTransformer.java:36)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.CruiseGRDDLResourceRDFizer.importFile(CruiseGRDDLResourceRDFizer.java:36)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.CruiseGRDDLResourceRDFizer.importDocumentUsingGRDDL(CruiseGRDDLResourceRDFizer.java:54)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.CruiseGRDDLResourceRDFizer.importURIUsingGRDDL(CruiseGRDDLResourceRDFizer.java:45)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.stage.details.JobResourceImporter.importJob(JobResourceImporter.java:52)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.stage.details.StageResourceImporter.importJobs(StageResourceImporter.java:95)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.stage.details.StageResourceImporter.load(StageResourceImporter.java:55)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.BackgroundStageLoader.handle(BackgroundStageLoader.java:55)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.stage.feeds.StageAtomFeedsReader.readFromLatest(StageAtomFeedsReader.java:35)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">at com.thoughtworks.studios.shine.cruise.BackgroundStageLoader.load(BackgroundStageLoader.java:45)</p>
+
+<p style=""margin-bottom: 16px; font-family: 'Lucida Sans Unicode', 'Lucida Grande', tahoma, Verdana, sans-serif; line-height: 18px; border: 0px; vertical-align: baseline; color: rgb(68, 68, 68);"">Can you help explain please?</p>
+
+<p>&nbsp;</p>
+
+<h3>Steps to reproduce</h3>
+
+<p># # #</p>
+
+<h4>Expected result</h4>
+
+<p>&nbsp;</p>
+
+<h4><strong>Current result</strong></h4>
+
+<p>&nbsp;</p>
+
+<h3><strong>Test Scenarios</strong></h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Bug' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Bug	Technical
+8041	UI issues when a pipeline has lot of stages	"<h2>Description</h2>
+
+<h3>Steps to reproduce</h3>
+
+<ol>
+ <li>Create a pipeline with lot of stages say 20</li>
+ <li>Let the stages of the pipeline run. Note that the display of the stages right in the end on dashboard changes based on the stage run in progress. See screenshots ""Changing_position_of_stages_1.png"" and ""Changing_position_of_stages_2.png""</li>
+ <li>Also on the pipeline dashboard see the width of the stage highlighted. Its smaller than the width of other stages. See screenshot ""Small_width_of_highlighted_stage.png""</li>
+ <li>View pipeline history page and verify that all stages of the pipeline are not displayed. See screenshot ""All_stages_not_displayed.png""</li>
+ <li>In case stage names are big, show a tooltip on stage details page</li>
+</ol>
+
+<p>&nbsp;</p>"	Bug	UI
+8044	Maven part 3 - clean up	"<h3>To Do:</h3>
+
+<ul>
+ <li><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 13.63636302947998px; line-height: 19.09090805053711px;"">All jar dependancies which are not available in maven repo are checked in into &nbsp;</span><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 13.63636302947998px; line-height: 19.09090805053711px;"">local-maven-repo folder under source code.&nbsp; Move&nbsp;local-maven-repo to http based repo something like -&nbsp;</span><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 13.63636302947998px; line-height: 19.09090805053711px;"">http://google-caja.googlecode.com/svn/maven</span></li>
+ <li><span style=""color: rgb(0, 0, 0); font-family: 'Helvetica Neue', Arial, Helvetica; font-size: 14px; line-height: 19px;"">MENIFEST.MF&nbsp;</span>&nbsp;is hardcoded for some module, need to find a way to generate MENIFEST.MF (ex agent-launcher &amp; tfs-impl)</li>
+ <li>move version of all modules from 1.0 -&gt; 14.1.0 for consistency</li>
+</ul>
+
+<h3>Acceptance Criteria</h3>
+
+<ul>
+ <li>Documentation</li>
+ <li>Performance testing</li>
+</ul>
+
+<h3>Dependencies</h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, status, priority WHERE 'Features - Story' = THIS CARD ORDER BY status
+}}
+
+<p>&nbsp;</p>
+
+<h3>Test Scenarios</h3>
+
+<p>&nbsp;</p>
+
+{{
+  table
+    query: SELECT number, name, type, priority, automated WHERE 'Scenarios - Story' = THIS CARD ORDER BY priority
+}}
+
+<p>&nbsp;</p>"	Story	Technical
+8046	Move OSX packaging from ant to buildr	"<h3>Description</h3>
+
+<p>Currently we create OSX installers through ant tasks. We need to move it to buildr.</p>
+
+<p>Also, there are many ant build files, check for usages and get rid of all if unused.</p>
+
+<p>&nbsp;</p>"	Task	Technical

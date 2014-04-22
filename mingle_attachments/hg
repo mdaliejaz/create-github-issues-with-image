@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "Using sleepy"
+while :
+do
+	echo 'hi' > /dev/null
+done

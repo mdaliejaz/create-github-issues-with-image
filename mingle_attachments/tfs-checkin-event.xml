@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope">
+<s:Header xmlns:w="http://www.w3.org/2005/08/addressing">
+<w:Action>http://schemas.microsoft.com/TeamFoundation/2005/06/Services/Notification/03/Notify</w:Action>
+<w:To>http://10.4.7.201:1212/</w:To>
+</s:Header>
+<s:Body>
+    <Notify xmlns="http://schemas.microsoft.com/TeamFoundation/2005/06/Services/Notification/03">
+    	<eventXml>
+		<?xml version="1.0" encoding="utf-16"?>
+		<CheckinEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<AllChangesIncluded>true</AllChangesIncluded>
+		<Subscriber>Srinivas Upadhya</Subscriber>
+		<CheckinNotes />
+		<CheckinInformation />
+		<Artifacts>
+		<Artifact xsi:type="ClientArtifact" ArtifactType="Changeset" ServerItem="">
+			<Url>http://fmtstdsol11:8080/tfs/web/cs.aspx?pcguid=507f5c82-2ddc-4a5f-b158-e6343bde2fd3&amp;cs=16</Url>
+		</Artifact>
+		<Artifact xsi:type="ClientArtifact" ArtifactType="VersionedItem" Item="test.txt" Folder="$/tfspostcommithook/test" TeamProject="tfspostcommithook" ItemRevision="16" ChangeType="edit" ServerItem="$/tfspostcommithook/test/test.txt">
+			<Url>http://fmtstdsol11:8080/tfs/web/diff.aspx?pcguid=507f5c82-2ddc-4a5f-b158-e6343bde2fd3&amp;opath=%24%2ftfspostcommithook%2ftest%2ftest.txt&amp;ocs=15&amp;mpath=%24%2ftfspostcommithook%2ftest%2ftest.txt&amp;mcs=16</Url>
+		</Artifact>
+		</Artifacts>
+		<Owner>CORPORATE\sriniup</Owner>
+		<OwnerDisplay>Srinivas Upadhya</OwnerDisplay>
+		<CreationDate>2/21/2013 10:10:43 PM</CreationDate>
+		<Comment />
+		<TimeZone>Pacific Standard Time</TimeZone>
+		<TimeZoneOffset>-08:00:00</TimeZoneOffset>
+		<TeamProject>tfspostcommithook</TeamProject>
+		<PolicyOverrideComment />
+		<PolicyFailures />
+		<Title>tfspostcommithook Changeset 16</Title>
+		<ContentTitle>Changeset 16</ContentTitle>
+		<Committer>CORPORATE\sriniup</Committer>
+		<CommitterDisplay>Srinivas Upadhya</CommitterDisplay>
+		<Number>16</Number>
+		</CheckinEvent>
+		</eventXml>
+    <tfsIdentityXml>&lt;TeamFoundationServer url="http://fmtstdsol11:8080/tfs/GoDev/Services/v3.0/LocationService.asmx" /&gt;</tfsIdentityXml>
+    <SubscriptionInfo>
+        <Classification/>
+        <ID>5</ID>
+        <Subscriber>S-1-5-21-74190707-212170503-339680022-64479</Subscriber>
+    </SubscriptionInfo>
+</Notify>
+</s:Body>
+</s:Envelope>

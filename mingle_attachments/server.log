@@ -1,0 +1,38 @@
+2013-08-05 16:00:33,698  WARN [86@MessageListener for ScheduleCheckListener] BuildCauseProducerService:157 - Error while scheduling pipeline: p1. Possible Reasons: (1) Upstream pipelines have not been built yet. (2) Materials do not match between configuration and build-cause.
+2013-08-05 16:00:33,702  WARN [87@MessageListener for ScheduleCheckListener] BuildCauseProducerService:157 - Error while scheduling pipeline: New. Possible Reasons: (1) Upstream pipelines have not been built yet. (2) Materials do not match between configuration and build-cause.
+2013-08-05 16:00:33,729  WARN [99@MessageListener for MaterialUpdateListener] MaterialDatabaseUpdater:96 - [Material Update] Modification check failed for material: Repository: [file:///home/princyj/repos/yumrepo/agent_repo] - Package: [go-agent]
+java.lang.RuntimeException: Invalid file path.
+	at com.thoughtworks.go.plugin.infra.FelixGoPluginOSGiFramework.executeActionOnTheService(FelixGoPluginOSGiFramework.java:198)
+	at com.thoughtworks.go.plugin.infra.FelixGoPluginOSGiFramework.doOn(FelixGoPluginOSGiFramework.java:191)
+	at com.thoughtworks.go.plugin.infra.DefaultPluginManager.doOn(DefaultPluginManager.java:64)
+	at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller.getModifications(PackageMaterialPoller.java:61)
+	at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller.latestModification(PackageMaterialPoller.java:42)
+	at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller.latestModification(PackageMaterialPoller.java:25)
+	at com.thoughtworks.cruise.server.service.MaterialService.latestModification(MaterialService.java:91)
+	at com.thoughtworks.cruise.server.materials.LegacyMaterialChecker.findLatestModification(LegacyMaterialChecker.java:33)
+	at com.thoughtworks.cruise.server.materials.ScmMaterialUpdater.insertLatestOrNewModifications(ScmMaterialUpdater.java:36)
+	at com.thoughtworks.cruise.server.materials.ScmMaterialUpdater.addNewMaterialWithModifications(ScmMaterialUpdater.java:56)
+	at com.thoughtworks.cruise.server.materials.PackageMaterialUpdater.addNewMaterialWithModifications(PackageMaterialUpdater.java:38)
+	at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater.addNewMaterialWithModifications(MaterialDatabaseUpdater.java:150)
+	at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater.initializeMaterialWithLatestRevision(MaterialDatabaseUpdater.java:109)
+	at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater.access$000(MaterialDatabaseUpdater.java:29)
+	at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater$1.doInTransaction(MaterialDatabaseUpdater.java:73)
+	at com.thoughtworks.cruise.server.transaction.TransactionCallback.doWithExceptionHandling(TransactionCallback.java:8)
+	at com.thoughtworks.cruise.server.transaction.TransactionTemplate$3.doInTransaction(TransactionTemplate.java:37)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:130)
+	at com.thoughtworks.cruise.server.transaction.TransactionTemplate.executeWithExceptionHandling(TransactionTemplate.java:33)
+	at com.thoughtworks.cruise.server.materials.MaterialDatabaseUpdater.updateMaterial(MaterialDatabaseUpdater.java:70)
+	at com.thoughtworks.cruise.server.materials.MaterialUpdateListener.onMessage(MaterialUpdateListener.java:27)
+	at com.thoughtworks.cruise.server.materials.MaterialUpdateListener.onMessage(MaterialUpdateListener.java:12)
+	at com.thoughtworks.cruise.server.messaging.activemq.JMSMessageListenerAdapter.runImpl(JMSMessageListenerAdapter.java:49)
+	at com.thoughtworks.cruise.server.messaging.activemq.JMSMessageListenerAdapter.run(JMSMessageListenerAdapter.java:34)
+	at java.lang.Thread.run(Thread.java:679)
+Caused by: java.lang.RuntimeException: Invalid file path.
+	at com.tw.go.plugin.material.artifactrepository.yum.exec.FileBasedConnectionChecker.checkConnection(Unknown Source)
+	at com.tw.go.plugin.material.artifactrepository.yum.exec.RepoUrl.checkConnection(Unknown Source)
+	at com.tw.go.plugin.material.artifactrepository.yum.exec.YumRepositoryPoller.getLatestRevision(Unknown Source)
+	at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller$1.execute(PackageMaterialPoller.java:38)
+	at com.thoughtworks.cruise.server.service.materials.PackageMaterialPoller$1.execute(PackageMaterialPoller.java:35)
+	at com.thoughtworks.go.plugin.infra.FelixGoPluginOSGiFramework.executeActionOnTheService(FelixGoPluginOSGiFramework.java:196)
+	... 24 more
+

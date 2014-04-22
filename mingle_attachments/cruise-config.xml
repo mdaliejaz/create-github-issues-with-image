@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cruise xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="cruise-config.xsd" schemaVersion="65">
+  <server artifactsdir="artifacts" commandRepositoryLocation="default" serverId="f0ff513e-4088-4586-9540-75fbcf9b8d74" />
+  <pipelines group="defaultGroup">
+    <pipeline name="Test">
+      <materials>
+        <git url="/tmp/test-git" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls" />
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+    <pipeline name="Perforce" isLocked="false">
+      <materials>
+        <p4 port="godev2:1666" username="blah" encryptedPassword="RR4hIjP8a7I=" useTickets="true" dest="perforce1" materialName="PER">
+          <view><![CDATA[//sample_depot/... //go-studios/sample_depot/...]]></view>
+        </p4>
+        <tfs url="http://godev2:8080/tfs/compare_pipeline" username="administrator" domain="godev2444" encryptedPassword="r28c5bE8mU1dt4a8oh/+LQ==" projectPath="$/tfs_one" dest="tfs_check" materialName="tfs_perf" />
+      </materials>
+      <stage name="defaultStage">
+        <jobs>
+          <job name="defaultJob">
+            <tasks>
+              <exec command="ls" />
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+    </pipeline>
+  </pipelines>
+</cruise>
+
